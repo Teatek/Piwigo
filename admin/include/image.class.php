@@ -367,12 +367,12 @@ class pwg_image
     {
       case 'auto':
       case 'imagick':
-        if ($extension != 'gif' and self::is_imagick())
+        if (self::is_imagick())
         {
           return 'imagick';
         }
       case 'ext_imagick':
-        if ($extension != 'gif' and self::is_ext_imagick())
+        if (self::is_ext_imagick())
         {
           return 'ext_imagick';
         }
@@ -519,6 +519,10 @@ class image_ext_imagick implements imageInterface
     }
 
     $command = $this->imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
+    if ('gif' == strtolower(get_extension($source_filepath)))
+    {
+      $command .= '[0]';
+    }
     @exec($command, $returnarray);
     if(!is_array($returnarray) or empty($returnarray[0]) or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
     {
@@ -621,8 +625,10 @@ class image_ext_imagick implements imageInterface
   function write($destination_filepath)
   {
     global $logger;
-
-    $this->add_command('interlace', 'line'); // progressive rendering
+    if(strtolower(get_extension($destination_filepath)) != 'gif')
+    {
+      $this->add_command('interlace', 'line'); // progressive rendering
+    }
     // use 4:2:2 chroma subsampling (reduce file size by 20-30% with "almost" no human perception)
     //
     // option deactivated for Piwigo 2.4.1, it doesn't work fo old versions

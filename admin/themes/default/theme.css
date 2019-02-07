@@ -848,6 +848,13 @@ h2:lang(en) { text-transform:capitalize; }
   border-left: 4px solid #f22;
 }
 
+.environment-error {
+  color: #f22;
+  background-color: #ffd5dc;
+  padding: 1px 5px 1px 0;
+  border-radius: 2px;
+}
+
 .warnings {
   color: #ee8800;
   background-color:#ffdd99;

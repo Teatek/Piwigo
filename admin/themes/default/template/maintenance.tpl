@@ -47,8 +47,6 @@
     <li>{'Operating system'|@translate}: {$OS}</li>
     <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
     <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
-    {if isset($GRAPHICS_LIBRARY)}
-    <li>{'Graphics Library'|@translate}: {$GRAPHICS_LIBRARY}</li>
-    {/if}
+    <li>{'Graphics Library'|@translate}: {if isset($GRAPHICS_LIBRARY)}{$GRAPHICS_LIBRARY}{else}<span class="environment-error"><i class="icon-cancel"></i>missing{/if}</li></span>
   </ul>
 </fieldset>

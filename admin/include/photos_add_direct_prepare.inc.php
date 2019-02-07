@@ -173,10 +173,16 @@ if (!empty($error_message))
   $setup_errors[] = $error_message;
 }
 
-if (!function_exists('gd_info'))
+if (!pwg_image::get_library())
 {
-  $setup_errors[] = l10n('GD library is missing');
+  $setup_errors[] = 'Graphic library is missing';
 }
+
+/*if (!function_exists('gd_info'))
+{
+  //printf("NO GD");
+  //$setup_errors[] = l10n('GD library is missing');
+}*/
 
 $template->assign(array(
   'setup_errors'=> $setup_errors,
